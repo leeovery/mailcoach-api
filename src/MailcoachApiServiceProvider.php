@@ -33,9 +33,9 @@ class MailcoachApiServiceProvider extends EventServiceProvider
     protected function bootPublishables()
     {
         if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('mailcoach-api.php'),
-            ], 'mailcoach-api-config');
+            // $this->publishes([
+            //     __DIR__.'/../config/config.php' => config_path('mailcoach-api.php'),
+            // ], 'mailcoach-api-config');
 
             if (! class_exists('AddEmailIndexToSubscribersTable')) {
                 $this->publishes([
@@ -49,6 +49,6 @@ class MailcoachApiServiceProvider extends EventServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'mailcoach-api');
+        // $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'mailcoach-api');
     }
 }
