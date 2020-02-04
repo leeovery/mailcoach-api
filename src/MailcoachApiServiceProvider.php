@@ -2,8 +2,8 @@
 
 namespace Leeovery\MailcoachApi;
 
-use App\Models\Contact;
 use Illuminate\Support\Facades\Route;
+use Leeovery\MailcoachApi\Models\Contact;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 
 class MailcoachApiServiceProvider extends EventServiceProvider

@@ -52,10 +52,7 @@
     "laravel": {
       "providers": [
         "Leeovery\\MailcoachApi\\MailcoachApiServiceProvider"
-      ],
-      "aliases": {
-        "MailcoachApi": "Leeovery\\MailcoachApi\\MailcoachApiFacade"
-      }
+      ]
     }
   }
 }
