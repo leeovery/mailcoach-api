@@ -1,9 +1,8 @@
 <?php
 
-namespace Leeovery\MailcoachApi\Http\Controllers\Api;
+namespace Leeovery\MailcoachApi\Http\Controllers;
 
 use Leeovery\MailcoachApi\Models\Contact;
-use Leeovery\MailcoachApi\Http\Controllers\Controller;
 use Leeovery\MailcoachApi\DTO\Contact\UpdateContactData;
 use Leeovery\MailcoachApi\DTO\Contact\CreateContactData;
 use Leeovery\MailcoachApi\Actions\Contact\UpdateContact;

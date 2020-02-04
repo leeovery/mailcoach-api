@@ -1,9 +1,8 @@
 <?php
 
-namespace Leeovery\MailcoachApi\Http\Controllers\Api;
+namespace Leeovery\MailcoachApi\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Leeovery\MailcoachApi\Http\Controllers\Controller;
 use Leeovery\MailcoachApi\Actions\Campaign\CreateCampaign;
 use Leeovery\MailcoachApi\DTO\Campaign\CreateCampaignData;
 use Leeovery\MailcoachApi\Http\Requests\CreateCampaignRequest;

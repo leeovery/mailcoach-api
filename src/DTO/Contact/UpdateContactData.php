@@ -16,16 +16,19 @@ class UpdateContactData extends DataTransferObject
 
     public bool $resubscribeAll;
 
-    public Collection $lists;
+    public Collection $listsUnsubscribe;
+
+    public Collection $listsResubscribe;
 
     public static function fromRequest(UpdateContactRequest $request): self
     {
         return new self([
-            'email'          => $request->input('email'),
-            'lists'          => $request->getEmailLists(),
-            'attributes'     => $request->input('attributes', []),
-            'unsubscribeAll' => (bool) $request->input('unsubscribe_all', false),
-            'resubscribeAll' => (bool) $request->input('resubscribe_all', false),
+            'email'            => $request->input('email'),
+            'listsUnsubscribe' => $request->getEmailListsForUnsubscribe(),
+            'listsResubscribe' => $request->getEmailListsForResubscribe(),
+            'attributes'       => $request->input('attributes', []),
+            'unsubscribeAll'   => (bool) $request->input('unsubscribe_all', false),
+            'resubscribeAll'   => (bool) $request->input('resubscribe_all', false),
         ]);
     }
 }

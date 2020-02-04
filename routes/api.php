@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Leeovery\MailcoachApi\Http\Controllers\Api\ListController;
-use Leeovery\MailcoachApi\Http\Controllers\Api\ContactController;
-use Leeovery\MailcoachApi\Http\Controllers\Api\CampaignController;
+use Leeovery\MailcoachApi\Http\Controllers\ListController;
+use Leeovery\MailcoachApi\Http\Controllers\ContactController;
+use Leeovery\MailcoachApi\Http\Controllers\CampaignController;
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();

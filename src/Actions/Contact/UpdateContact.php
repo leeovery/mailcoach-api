@@ -13,11 +13,6 @@ class UpdateContact
 {
     protected UpdateContactData $contactData;
 
-    /**
-     * @var Collection
-     */
-    protected Collection $contactSubscriptions;
-
     public function execute(Contact $contact, UpdateContactData $contactData)
     {
         $this->contactData = $contactData;
@@ -25,6 +20,7 @@ class UpdateContact
         DB::transaction(function () use ($contact) {
 
             $contact->getSubscriptions()->each(function (Subscriber $subscriber) {
+
                 $subscriber->fill([
                     'email'      => $this->contactData->email ?? $subscriber->email,
                     'first_name' => data_get($this->contactData->attributes, 'first_name', $subscriber->first_name),
@@ -40,21 +36,32 @@ class UpdateContact
                     );
                 }
 
-                if (! $subscriber->isUnsubscribed()) {
-                    if ($this->contactData->unsubscribeAll) {
-                        $subscriber->unsubscribed_at = now();
-                    }
+                switch (true) {
+                    case $subscriber->isSubscribed():
+                        if ($this->contactData->unsubscribeAll) {
+                            $subscriber->unsubscribed_at = now();
+                        }
 
-                    if ($this->contactData->lists->pluck('id')->contains($subscriber->email_list_id)) {
-                        $subscriber->unsubscribed_at = now();
-                    }
-                }
+                        if ($this->contactData->listsUnsubscribe->pluck('id')->contains($subscriber->email_list_id)) {
+                            $subscriber->unsubscribed_at = now();
+                        }
+                        break;
 
-                if ($this->contactData->resubscribeAll && $subscriber->isUnsubscribed()) {
-                    $subscriber->fill([
-                        'subscribed_at'   => now(),
-                        'unsubscribed_at' => null,
-                    ]);
+                    case $subscriber->isUnsubscribed():
+                        if ($this->contactData->resubscribeAll) {
+                            $subscriber->fill([
+                                'subscribed_at'   => now(),
+                                'unsubscribed_at' => null,
+                            ]);
+                        }
+
+                        if ($this->contactData->listsResubscribe->pluck('id')->contains($subscriber->email_list_id)) {
+                            $subscriber->fill([
+                                'subscribed_at'   => now(),
+                                'unsubscribed_at' => null,
+                            ]);
+                        }
+                        break;
                 }
 
                 $subscriber->save();

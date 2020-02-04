@@ -1,9 +1,8 @@
 <?php
 
-namespace Leeovery\MailcoachApi\Http\Controllers\Api;
+namespace Leeovery\MailcoachApi\Http\Controllers;
 
 use Leeovery\MailcoachApi\Models\EmailList;
-use Leeovery\MailcoachApi\Http\Controllers\Controller;
 use Leeovery\MailcoachApi\Http\Resources\EmailListResource;
 
 class ListController extends Controller
