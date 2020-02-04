@@ -1,60 +1,54 @@
-<?php
+<?php /** @noinspection PhpMissingFieldTypeInspection */
 
 namespace Leeovery\MailcoachApi;
 
-use Illuminate\Support\ServiceProvider;
+use App\Models\Contact;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 
-class MailcoachApiServiceProvider extends ServiceProvider
+class MailcoachApiServiceProvider extends EventServiceProvider
 {
-    /**
-     * Bootstrap the application services.
-     */
+    // protected $listen = [];
+
     public function boot()
     {
-        /*
-         * Optional methods to load your package assets
-         */
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'mailcoach-api');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'mailcoach-api');
-        // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
+        parent::boot();
 
+        $this->bootPublishables()
+             ->bootRoutes();
+    }
+
+    protected function bootRoutes()
+    {
+        Route::macro('mailcoachApi', function (string $apiPrefix = 'api') {
+            Route::model('contact', Contact::class);
+            Route::prefix($apiPrefix)
+                 ->middleware('api')
+                 ->group(__DIR__.'/../routes/api.php');
+        });
+
+        return $this;
+    }
+
+    protected function bootPublishables()
+    {
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/config.php' => config_path('mailcoach-api.php'),
-            ], 'config');
+            ], 'mailcoach-api-config');
 
-            // Publishing the views.
-            /*$this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/mailcoach-api'),
-            ], 'views');*/
-
-            // Publishing assets.
-            /*$this->publishes([
-                __DIR__.'/../resources/assets' => public_path('vendor/mailcoach-api'),
-            ], 'assets');*/
-
-            // Publishing the translation files.
-            /*$this->publishes([
-                __DIR__.'/../resources/lang' => resource_path('lang/vendor/mailcoach-api'),
-            ], 'lang');*/
-
-            // Registering package commands.
-            // $this->commands([]);
+            if (! class_exists('AddEmailIndexToSubscribersTable')) {
+                $this->publishes([
+                    __DIR__.'/../database/migrations/add_email_index_to_subscribers_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_add_email_index_to_subscribers_table.php'),
+                ], 'mailcoach-api-migrations');
+            }
         }
+
+        return $this;
     }
 
-    /**
-     * Register the application services.
-     */
     public function register()
     {
-        // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'mailcoach-api');
-
-        // Register the main class to use with the facade
-        $this->app->singleton('mailcoach-api', function () {
-            return new MailcoachApi;
-        });
     }
 }
