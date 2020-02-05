@@ -4,7 +4,7 @@ namespace Leeovery\MailcoachApi\DTO\Contact;
 
 use Illuminate\Support\Collection;
 use Spatie\DataTransferObject\DataTransferObject;
-use Leeovery\MailcoachApi\Http\Requests\CreateContactRequest;
+use Leeovery\MailcoachApi\Http\Api\Requests\CreateContactRequest;
 
 class CreateContactData extends DataTransferObject
 {

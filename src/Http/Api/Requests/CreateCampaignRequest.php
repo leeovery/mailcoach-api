@@ -1,13 +1,13 @@
 <?php
 
-namespace Leeovery\MailcoachApi\Http\Requests;
+namespace Leeovery\MailcoachApi\Http\Api\Requests;
 
 use Carbon\Carbon;
 use Illuminate\Validation\Rules\Unique;
 use Illuminate\Validation\Rules\Exists;
 use Leeovery\MailcoachApi\Models\Campaign;
-use Leeovery\MailcoachApi\Models\EmailList;
 use Illuminate\Foundation\Http\FormRequest;
+use Leeovery\MailcoachApi\Models\EmailList;
 
 class CreateCampaignRequest extends FormRequest
 {

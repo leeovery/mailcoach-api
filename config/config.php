@@ -9,8 +9,16 @@ return [
     *  to add your own middleware to this stack or override any of the existing middleware.
     */
     'middleware' => [
-        'api',
-        CheckClientCredentials::class,
+
+        'api' => [
+            'api',
+            CheckClientCredentials::class,
+        ],
+
+        'web' => [
+            'web',
+        ],
+
     ],
 
 ];

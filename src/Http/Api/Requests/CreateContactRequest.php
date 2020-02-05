@@ -1,11 +1,11 @@
 <?php
 
-namespace Leeovery\MailcoachApi\Http\Requests;
+namespace Leeovery\MailcoachApi\Http\Api\Requests;
 
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rules\Exists;
-use Leeovery\MailcoachApi\Models\EmailList;
 use Illuminate\Foundation\Http\FormRequest;
+use Leeovery\MailcoachApi\Models\EmailList;
 
 class CreateContactRequest extends FormRequest
 {

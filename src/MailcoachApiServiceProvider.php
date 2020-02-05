@@ -17,17 +17,27 @@ class MailcoachApiServiceProvider extends EventServiceProvider
         parent::boot();
 
         $this->bootPublishables()
-             ->bootRoutes();
+             ->bootRoutes()
+             ->bootViews();
+    }
+
+    protected function bootViews()
+    {
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'mailcoach-api');
     }
 
     protected function bootRoutes()
     {
-        Route::macro('mailcoachApi', function (string $apiPrefix = 'api') {
+        Route::macro('mailcoachApi', function (string $apiPrefix = 'api', string $webPrefix = '') {
             Route::model('contact', Contact::class);
             Passport::routes(null, ['prefix' => 'api/oauth']);
             Route::prefix($apiPrefix)
-                 ->middleware(config('mailcoach-api.middleware'))
+                 ->middleware(config('mailcoach-api.middleware.api'))
                  ->group(__DIR__.'/../routes/api.php');
+            Route::prefix($webPrefix)
+                 ->name('mailcoach-api.')
+                 ->middleware(config('mailcoach-api.middleware.web'))
+                 ->group(__DIR__.'/../routes/web.php');
         });
 
         return $this;

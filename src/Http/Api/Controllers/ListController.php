@@ -1,11 +1,11 @@
 <?php
 
-namespace Leeovery\MailcoachApi\Http\Controllers;
+namespace Leeovery\MailcoachApi\Http\Api\Controllers;
 
 use Leeovery\MailcoachApi\Models\EmailList;
-use Leeovery\MailcoachApi\Http\Resources\EmailListResource;
+use Leeovery\MailcoachApi\Http\Api\Resources\EmailListResource;
 
-class ListController extends Controller
+class ListController
 {
     public function index()
     {

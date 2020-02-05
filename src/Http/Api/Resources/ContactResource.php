@@ -1,6 +1,6 @@
 <?php /** @noinspection PhpUndefinedMethodInspection */
 
-namespace Leeovery\MailcoachApi\Http\Resources;
+namespace Leeovery\MailcoachApi\Http\Api\Resources;
 
 use Leeovery\MailcoachApi\Models\Contact;
 use Leeovery\MailcoachApi\Models\Subscriber;

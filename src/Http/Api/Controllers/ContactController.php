@@ -1,23 +1,23 @@
 <?php
 
-namespace Leeovery\MailcoachApi\Http\Controllers;
+namespace Leeovery\MailcoachApi\Http\Api\Controllers;
 
 use Leeovery\MailcoachApi\Models\Contact;
-use Leeovery\MailcoachApi\DTO\Contact\UpdateContactData;
+use Leeovery\MailcoachApi\Actions\Contact\CreateContact;
 use Leeovery\MailcoachApi\DTO\Contact\CreateContactData;
 use Leeovery\MailcoachApi\Actions\Contact\UpdateContact;
-use Leeovery\MailcoachApi\Actions\Contact\CreateContact;
-use Leeovery\MailcoachApi\Http\Resources\ContactResource;
-use Leeovery\MailcoachApi\Http\Requests\CreateContactRequest;
-use Leeovery\MailcoachApi\Http\Requests\UpdateContactRequest;
+use Leeovery\MailcoachApi\DTO\Contact\UpdateContactData;
+use Leeovery\MailcoachApi\Http\Api\Resources\ContactResource;
+use Leeovery\MailcoachApi\Http\Api\Requests\CreateContactRequest;
+use Leeovery\MailcoachApi\Http\Api\Requests\UpdateContactRequest;
 
-class ContactController extends Controller
+class ContactController
 {
     public function store(CreateContactRequest $request, CreateContact $createContact)
     {
         $createContact->execute(CreateContactData::fromRequest($request));
 
-        return $this->accepted();
+        return response()->json([], 201);
     }
 
     public function show(Contact $contact)
@@ -29,11 +29,6 @@ class ContactController extends Controller
     {
         $updateContact->execute($contact, UpdateContactData::fromRequest($request));
 
-        return $this->accepted();
-    }
-
-    public function destroy($id)
-    {
-        // ??
+        return response()->json([], 202);
     }
 }

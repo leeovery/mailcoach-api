@@ -5,7 +5,7 @@ namespace Leeovery\MailcoachApi\DTO\Campaign;
 use Carbon\Carbon;
 use Leeovery\MailcoachApi\Models\EmailList;
 use Spatie\DataTransferObject\DataTransferObject;
-use Leeovery\MailcoachApi\Http\Requests\CreateCampaignRequest;
+use Leeovery\MailcoachApi\Http\Api\Requests\CreateCampaignRequest;
 
 class CreateCampaignData extends DataTransferObject
 {

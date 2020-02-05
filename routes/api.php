@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Leeovery\MailcoachApi\Http\Controllers\ListController;
-use Leeovery\MailcoachApi\Http\Controllers\ContactController;
-use Leeovery\MailcoachApi\Http\Controllers\CampaignController;
+use Leeovery\MailcoachApi\Http\Api\Controllers\ListController;
+use Leeovery\MailcoachApi\Http\Api\Controllers\ContactController;
+use Leeovery\MailcoachApi\Http\Api\Controllers\CampaignController;
 
 Route::apiResource('list', ListController::class)->only(['index', 'show']);
-Route::apiResource('contact', ContactController::class)->except(['index', 'destroy']);
-Route::apiResource('campaign', CampaignController::class)->except(['destroy']);
+Route::apiResource('contact', ContactController::class)->only(['store', 'show', 'update']);
+Route::apiResource('campaign', CampaignController::class)->only(['store']);

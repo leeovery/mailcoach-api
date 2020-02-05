@@ -1,6 +1,6 @@
 <?php
 
-namespace Leeovery\MailcoachApi\Http\Resources;
+namespace Leeovery\MailcoachApi\Http\Api\Resources;
 
 use Leeovery\MailcoachApi\Models\EmailList;
 use Illuminate\Http\Resources\Json\JsonResource;

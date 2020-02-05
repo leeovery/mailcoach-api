@@ -5,7 +5,6 @@ namespace Leeovery\MailcoachApi\Actions\Contact;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Leeovery\MailcoachApi\Models\Contact;
-use Illuminate\Database\Eloquent\Collection;
 use Leeovery\MailcoachApi\Models\Subscriber;
 use Leeovery\MailcoachApi\DTO\Contact\UpdateContactData;
 
