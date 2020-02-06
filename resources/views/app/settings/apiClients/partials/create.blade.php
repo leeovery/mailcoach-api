@@ -1,4 +1,4 @@
-<form class="form-grid" action="{{ route('mailcoach-api.api-clients.create') }}" method="POST">
+<form class="form-grid" action="{{ route('mailcoach-api.clients.create') }}" method="POST">
     @csrf
     <x-text-field label="Name" name="name" required />
 

@@ -13,27 +13,23 @@
 @section('content')
     <section class="card">
         <div class="table-actions">
-            <button class="button" data-modal-trigger="create-template">
+            <button class="button" data-modal-trigger="create-client">
                 <x-icon-label icon="far fa-bolt" text="Create new API client"/>
             </button>
 
-            <x-modal title="Create API client" name="create-template" :open="$errors->any()">
+            <x-modal title="Create API client" name="create-client" :open="$errors->any()">
                 @include('mailcoach-api::app.settings.apiClients.partials.create')
             </x-modal>
-
-            <div class=table-filters>
-                {{--<x-search placeholder="Filter users…"/>--}}
-            </div>
         </div>
 
         @if(count($clients))
             <table class="table">
                 <thead>
                 <tr>
-                    <x-th sort-by="id" sort-default>Client ID</x-th>
-                    <x-th sort-by="name" sort-default>Name</x-th>
-                    <x-th sort-by="-active_subscribers_count" class="w-32 th-numeric">Active</x-th>
-                    <x-th sort-by="-created_at" class="w-48 th-numeric hidden | md:table-cell">Created</x-th>
+                    <th>Client ID</th>
+                    <th>Name</th>
+                    <th>Secret</th>
+                    <th class="w-48 th-numeric hidden | md:table-cell">Created</th>
                     <th class="w-12"></th>
                 </tr>
                 </thead>
@@ -42,7 +38,14 @@
                     <tr>
                         <td>{{ $client->id }}</td>
                         <td>{{ $client->name }}</td>
-                        <td>state</td>
+                        <td>
+                            <button class="button px-2 h-8" data-modal-trigger="show-secret-{{ $client->id }}">
+                                <x-icon-label text="Show secret"/>
+                            </button>
+                            <x-modal title="Client Secret" :name="'show-secret-'.$client->id">
+                                @include('mailcoach-api::app.settings.apiClients.partials.showSecret')
+                            </x-modal>
+                        </td>
                         <td class="td-numeric hidden | md:table-cell">
                             {{ $client->created_at->toMailcoachFormat() }}
                         </td>
@@ -54,11 +57,11 @@
                                 <ul class="dropdown-list dropdown-list-left | hidden" data-dropdown-list>
                                     <li>
                                         <x-form-button
-                                                :action="route('mailcoach-api.api-clients.destroy', $client)"
+                                                :action="route('mailcoach-api.clients.destroy', $client)"
                                                 method="DELETE"
                                                 data-confirm="true"
                                         >
-                                            <x-icon-label icon="fa-trash-alt" text="Revoke" :caution="true" />
+                                            <x-icon-label icon="fa-trash-alt" text="Revoke" :caution="true"/>
                                         </x-form-button>
                                     </li>
                                 </ul>
@@ -69,16 +72,16 @@
                 </tbody>
             </table>
 
-{{--            <x-table-status--}}
-{{--                    name="list"--}}
-{{--                    :paginator="$emailLists"--}}
-{{--                    :total-count="$totalEmailListsCount"--}}
-{{--                    :show-all-url="route('mailcoach.emailLists')"--}}
-{{--            ></x-table-status>--}}
+            <x-table-status
+                    name="client"
+                    :paginator="$clients"
+                    :total-count="$totalClientCount"
+                    :show-all-url="route('mailcoach-api.clients')"
+            ></x-table-status>
 
         @else
             <p class="alert alert-info">
                 You'll need at least one API client to authenticate with the Mailcoach API.
             </p>
-        @endif
+    @endif
 @endsection

@@ -1,6 +1,6 @@
 <?php
 
-namespace LeeOvery\MailcoachApi\Http\App\Controllers;
+namespace Leeovery\MailcoachApi\Http\App\Controllers;
 
 use Laravel\Passport\ClientRepository;
 use Leeovery\MailcoachApi\Http\App\Requests\CreateApiClientRequest;
@@ -13,6 +13,6 @@ class CreateApiClientController
 
         flash()->success("API client \"{$client->name}\" was created.");
 
-        return redirect()->route('mailcoach-api.api-clients.index');
+        return redirect()->route('mailcoach-api.clients');
     }
 }

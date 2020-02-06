@@ -31,11 +31,12 @@ class MailcoachApiServiceProvider extends EventServiceProvider
         Route::macro('mailcoachApi', function (string $apiPrefix = 'api', string $webPrefix = '') {
             Route::model('contact', Contact::class);
             Passport::routes(null, ['prefix' => 'api/oauth']);
+
             Route::prefix($apiPrefix)
                  ->middleware(config('mailcoach-api.middleware.api'))
                  ->group(__DIR__.'/../routes/api.php');
+
             Route::prefix($webPrefix)
-                 ->name('mailcoach-api.')
                  ->middleware(config('mailcoach-api.middleware.web'))
                  ->group(__DIR__.'/../routes/web.php');
         });
@@ -45,13 +46,15 @@ class MailcoachApiServiceProvider extends EventServiceProvider
 
     protected function bootPublishables()
     {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('mailcoach-api.php'),
-            ], 'mailcoach-api-config');
+        $this->publishes([
+            __DIR__.'/../resources/views' => resource_path('views/vendor/mailcoach'),
+        ], 'mailcoach-api-views');
 
-            $this->publishMigrationIfNeeded('add_email_index_to_subscribers_table');
-        }
+        $this->publishes([
+            __DIR__.'/../config/config.php' => config_path('mailcoach-api.php'),
+        ], 'mailcoach-api-config');
+
+        $this->publishMigrationIfNeeded('add_email_index_to_subscribers_table');
 
         return $this;
     }

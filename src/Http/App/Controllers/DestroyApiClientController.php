@@ -13,6 +13,6 @@ class DestroyApiClientController
 
         flash()->success("API client \"{$client->name}\" was deleted.");
 
-        return redirect()->route('mailcoach-api.api-clients.index');
+        return redirect()->route('mailcoach-api.clients');
     }
 }

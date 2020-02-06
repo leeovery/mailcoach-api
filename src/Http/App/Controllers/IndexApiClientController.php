@@ -9,8 +9,8 @@ class IndexApiClientController
     public function __invoke()
     {
         return view('mailcoach-api::app.settings.apiClients.index', [
-            'clients'          => $clients = Client::where('revoked', false)->get(),
-            'totalClientCount' => $clients->count(),
+            'clients'          => Client::whereRevoked(false)->paginate(),
+            'totalClientCount' => Client::whereRevoked(false)->count(),
         ]);
     }
 }

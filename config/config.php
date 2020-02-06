@@ -1,6 +1,9 @@
 <?php
 
+use Spatie\Mailcoach\Http\App\Middleware\Authorize;
+use Spatie\Mailcoach\Http\App\Middleware\Authenticate;
 use Laravel\Passport\Http\Middleware\CheckClientCredentials;
+use Spatie\Mailcoach\Http\App\Middleware\SetMailcoachDefaults;
 
 return [
 
@@ -17,6 +20,9 @@ return [
 
         'web' => [
             'web',
+            Authenticate::class,
+            Authorize::class,
+            SetMailcoachDefaults::class,
         ],
 
     ],
