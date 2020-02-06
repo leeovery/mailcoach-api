@@ -5,13 +5,14 @@ namespace Leeovery\MailcoachApi;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Event;
 use Leeovery\MailcoachApi\Models\Contact;
+use Leeovery\MailcoachApi\Listeners\MailcoachEventListener;
+use Leeovery\MailcoachApi\Listeners\MailcoachEventSubscriber;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 
 class MailcoachApiServiceProvider extends EventServiceProvider
 {
-    // protected $listen = [];
-
     public function boot()
     {
         parent::boot();
@@ -75,5 +76,6 @@ class MailcoachApiServiceProvider extends EventServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'mailcoach-api');
+        Event::subscribe(new MailcoachEventSubscriber);
     }
 }
