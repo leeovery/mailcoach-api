@@ -6,17 +6,14 @@ use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\ServiceProvider;
 use Leeovery\MailcoachApi\Models\Contact;
 use Leeovery\MailcoachApi\Listeners\MailcoachEventListener;
-use Leeovery\MailcoachApi\Listeners\MailcoachEventSubscriber;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 
-class MailcoachApiServiceProvider extends EventServiceProvider
+class MailcoachApiServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        parent::boot();
-
         $this->bootPublishables()
              ->bootRoutes()
              ->bootViews();
@@ -47,15 +44,17 @@ class MailcoachApiServiceProvider extends EventServiceProvider
 
     protected function bootPublishables()
     {
-        $this->publishes([
-            __DIR__.'/../resources/views' => resource_path('views/vendor/mailcoach'),
-        ], 'mailcoach-api-views');
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../resources/views' => resource_path('views/vendor/mailcoach'),
+            ], 'mailcoach-api-views');
 
-        $this->publishes([
-            __DIR__.'/../config/config.php' => config_path('mailcoach-api.php'),
-        ], 'mailcoach-api-config');
+            $this->publishes([
+                __DIR__.'/../config/config.php' => config_path('mailcoach-api.php'),
+            ], 'mailcoach-api-config');
 
-        $this->publishMigrationIfNeeded('add_email_index_to_subscribers_table');
+            $this->publishMigrationIfNeeded('create_mailcoach_api_tables');
+        }
 
         return $this;
     }
@@ -69,13 +68,13 @@ class MailcoachApiServiceProvider extends EventServiceProvider
             ->first();
 
         $this->publishes([
-            __DIR__.'/../database/migrations/add_email_index_to_subscribers_table.php.stub' => $pathToMigration,
+            __DIR__.'/../database/migrations/create_mailcoach_api_tables.php.stub' => $pathToMigration,
         ], 'mailcoach-api-migrations');
     }
 
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'mailcoach-api');
-        Event::subscribe(new MailcoachEventSubscriber);
+        Event::listen('Spatie\Mailcoach\Events\*', MailcoachEventListener::class);
     }
 }

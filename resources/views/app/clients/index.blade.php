@@ -18,7 +18,7 @@
             </button>
 
             <x-modal title="Create API client" name="create-client" :open="$errors->any()">
-                @include('mailcoach-api::app.settings.apiClients.partials.create')
+                @include('mailcoach-api::app.clients.partials.create')
             </x-modal>
         </div>
 
@@ -43,7 +43,7 @@
                                 <x-icon-label text="Show secret"/>
                             </button>
                             <x-modal title="Client Secret" :name="'show-secret-'.$client->id">
-                                @include('mailcoach-api::app.settings.apiClients.partials.showSecret')
+                                @include('mailcoach-api::app.clients.partials.showSecret')
                             </x-modal>
                         </td>
                         <td class="td-numeric hidden | md:table-cell">

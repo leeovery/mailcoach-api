@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpUnused */
+<?php
 
 namespace Leeovery\MailcoachApi\Listeners;
 
@@ -51,7 +51,7 @@ class MailcoachEventSubscriber
         dd($event);
     }
 
-    public function onSubscribedEvent(SubscribedEvent $event)
+    public function onSubscribedEvent(ComplaintRegisteredEvent $event)
     {
         dd($event);
     }

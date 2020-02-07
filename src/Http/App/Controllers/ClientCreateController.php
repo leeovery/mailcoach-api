@@ -5,7 +5,7 @@ namespace Leeovery\MailcoachApi\Http\App\Controllers;
 use Laravel\Passport\ClientRepository;
 use Leeovery\MailcoachApi\Http\App\Requests\CreateApiClientRequest;
 
-class CreateApiClientController
+class ClientCreateController
 {
     public function __invoke(CreateApiClientRequest $request, ClientRepository $clientRepository)
     {
