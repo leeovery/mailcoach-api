@@ -15,6 +15,7 @@ class CreateMailcoachApiTables extends Migration
         Schema::create('mailcoach_api_webhooks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->uuid('uuid');
             $table->string('url')->nullable();
             $table->json('triggers')->nullable();
             $table->string('status', 15);
@@ -25,7 +26,9 @@ class CreateMailcoachApiTables extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('webhook_id');
             $table->string('url');
-            $table->json('triggers');
+            $table->string('status');
+            $table->json('payload');
+            $table->json('headers');
             $table->unsignedInteger('attempts');
             $table->timestamps();
 

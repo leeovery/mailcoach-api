@@ -18,14 +18,9 @@ use Spatie\Mailcoach\Events\BounceRegisteredEvent;
 use Spatie\Mailcoach\Events\CampaignMailSentEvent;
 use Spatie\Mailcoach\Events\CampaignLinkClickedEvent;
 use Spatie\Mailcoach\Events\ComplaintRegisteredEvent;
-use Spatie\WebhookServer\Events\WebhookCallFailedEvent;
-use Spatie\WebhookServer\Events\WebhookCallSucceededEvent;
+use Leeovery\MailcoachApi\Subscribers\WebhookSubscriber;
 use Leeovery\MailcoachApi\Listeners\MailcoachEventListener;
-use Spatie\WebhookServer\Events\FinalWebhookCallFailedEvent;
 use Spatie\Mailcoach\Events\UnconfirmedSubscriberCreatedEvent;
-use LeeOvery\MailcoachApi\Listeners\WebhookCallSucceededListener;
-use LeeOvery\MailcoachApi\Listeners\WebhookCallFailedListener;
-use LeeOvery\MailcoachApi\Listeners\FinalWebhookCallFailedListener;
 
 class MailcoachApiServiceProvider extends ServiceProvider
 {
@@ -127,10 +122,7 @@ class MailcoachApiServiceProvider extends ServiceProvider
         });
 
         Event::listen('Spatie\Mailcoach\Events\*', MailcoachEventListener::class);
-
-        Event::listen(WebhookCallSucceededEvent::class, WebhookCallSucceededListener::class);
-        Event::listen(WebhookCallFailedEvent::class, WebhookCallFailedListener::class);
-        Event::listen(FinalWebhookCallFailedEvent::class, FinalWebhookCallFailedListener::class);
+        Event::subscribe(WebhookSubscriber::class);
 
         Str::macro('kebabToSentence', function ($value) {
             return Str::ucfirst(Str::lower(str_replace('-', ' ', $value)));

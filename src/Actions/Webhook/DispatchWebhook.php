@@ -37,6 +37,7 @@ class DispatchWebhook
                    WebhookCall::create()
                               ->url($webhook->url)
                               ->payload($payload)
+                              ->meta(['webhook_id' => $webhook->uuid])
                               ->useSecret(config('mailcoach-api.webhooks.secret'))
                               ->dispatch();
                });

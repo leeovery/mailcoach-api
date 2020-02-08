@@ -4,11 +4,14 @@ namespace Leeovery\MailcoachApi\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Spatie\Mailcoach\Models\Concerns\HasUuid;
 use Leeovery\MailcoachApi\Enums\WebhookStatus;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Webhook extends Model
 {
+    use HasUuid;
+
     public $table = 'mailcoach_api_webhooks';
 
     public $casts = [
@@ -38,7 +41,7 @@ class Webhook extends Model
         return $query->where('status', WebhookStatus::ACTIVATED);
     }
 
-    public function events(): HasMany
+    public function webhookEvents(): HasMany
     {
         return $this->hasMany(WebhookEvent::class);
     }
