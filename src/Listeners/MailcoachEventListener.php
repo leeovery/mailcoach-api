@@ -6,9 +6,6 @@ use Leeovery\MailcoachApi\Actions\Webhook\DispatchWebhook;
 
 class MailcoachEventListener
 {
-    /**
-     * @var DispatchWebhook
-     */
     private DispatchWebhook $dispatchWebhook;
 
     public function __construct(DispatchWebhook $dispatchWebhook)
@@ -18,6 +15,6 @@ class MailcoachEventListener
 
     public function handle($eventName, $eventPayload)
     {
-        $this->dispatchWebhook->execute($eventName, $eventPayload);
+        $this->dispatchWebhook->execute($eventName, $eventPayload[0]);
     }
 }

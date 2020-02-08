@@ -11,9 +11,7 @@ return [
 
         'enabled' => env('MAILCOACH_API_WEBHOOK_ENABLED', false),
 
-        // can be full url with domain or just uri for current domain/site.
-        // http://mailbox.pointsbox.test/mailcoach-api/webhook/{event}
-        'url'     => 'mailcoach-api/webhook',
+        'secret' => env('MAILCOACH_API_WEBHOOK_SECRET', 'this-is-meant-to-be-a-secret-dude'),
 
     ],
 

@@ -90,7 +90,7 @@ class MailcoachApiServiceProvider extends ServiceProvider
             ], 'mailcoach-api-views');
 
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('mailcoach-api.php'),
+                __DIR__.'/../config/mailcoach-api.php' => config_path('mailcoach-api.php'),
             ], 'mailcoach-api-config');
 
             $this->publishMigrationIfNeeded('create_mailcoach_api_tables');
@@ -114,7 +114,7 @@ class MailcoachApiServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'mailcoach-api');
+        $this->mergeConfigFrom(__DIR__.'/../config/mailcoach-api.php', 'mailcoach-api');
 
         $this->app->singleton(Triggers::class, function () {
             return new Triggers(collect($this->actionMap));

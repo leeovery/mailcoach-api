@@ -22,4 +22,9 @@ class Triggers
     {
         return $this->eventMap->has($event);
     }
+
+    public function getTriggerKey($event)
+    {
+        return $this->eventMap->get($event);
+    }
 }

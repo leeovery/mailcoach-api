@@ -3,6 +3,7 @@
 namespace Leeovery\MailcoachApi\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Leeovery\MailcoachApi\Enums\WebhookStatus;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -25,6 +26,16 @@ class Webhook extends Model
                 $webhook->status = WebhookStatus::DRAFT;
             }
         });
+    }
+
+    public function scopeWithTrigger(Builder $query, $event)
+    {
+        return $query->where('triggers', 'LIKE', "%\"{$event}\"%");
+    }
+
+    public function scopeIsActive(Builder $query)
+    {
+        return $query->where('status', WebhookStatus::ACTIVATED);
     }
 
     public function events(): HasMany

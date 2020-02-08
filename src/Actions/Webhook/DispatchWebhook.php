@@ -1,7 +1,10 @@
-<?php
+<?php /** @noinspection PhpUndefinedMethodInspection */
 
 namespace Leeovery\MailcoachApi\Actions\Webhook;
 
+use Illuminate\Support\Str;
+use Spatie\WebhookServer\WebhookCall;
+use Leeovery\MailcoachApi\Models\Webhook;
 use Leeovery\MailcoachApi\Support\Triggers;
 
 class DispatchWebhook
@@ -15,14 +18,27 @@ class DispatchWebhook
 
     public function execute($eventName, $eventPayload)
     {
-        // a Mailcoach event has occurred.
-        // if it appears in the actionmap, lets get the eventKey
-
-        // dd($eventName, $this->triggers);
-
-        if (!$this->triggers->hasEvent($eventName)) {
-            dd('NOPE');
+        if (! $this->triggers->hasEvent($eventName)) {
+            return;
         }
-        dd('YES');
+
+        $triggerKey = $this->triggers->getTriggerKey($eventName);
+        $property = array_keys(get_object_vars($eventPayload))[0] ?? null;
+
+        $payload = [
+            'event'   => Str::replaceFirst('Spatie\\Mailcoach\\Events\\', '', $eventName),
+            'payload' => $property ? optional($eventPayload->$property)->toArray() : null,
+        ];
+
+        Webhook::query()
+               ->withTrigger($triggerKey)
+               ->isActive()
+               ->each(function (Webhook $webhook) use ($payload) {
+                   WebhookCall::create()
+                              ->url($webhook->url)
+                              ->payload($payload)
+                              ->useSecret(config('mailcoach-api.webhooks.secret'))
+                              ->dispatch();
+               });
     }
 }
