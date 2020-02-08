@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUndefinedFieldInspection */
 
 namespace Leeovery\MailcoachApi\Models;
 
@@ -30,5 +30,22 @@ class Webhook extends Model
     public function events(): HasMany
     {
         return $this->hasMany(WebhookEvent::class);
+    }
+
+    public function getTriggerListCountAttribute(): int
+    {
+        return count($this->triggers);
+    }
+
+    public function activate()
+    {
+        $this->status = WebhookStatus::ACTIVATED;
+        $this->save();
+    }
+
+    public function deactivate()
+    {
+        $this->status = WebhookStatus::DEACTIVATED;
+        $this->save();
     }
 }

@@ -57,7 +57,7 @@
                                 <ul class="dropdown-list dropdown-list-left | hidden" data-dropdown-list>
                                     <li>
                                         <x-form-button
-                                                :action="route('mailcoach-api.clients.destroy', $client)"
+                                                :action="route('mailcoach-api.clients.delete', $client)"
                                                 method="DELETE"
                                                 data-confirm="true"
                                         >

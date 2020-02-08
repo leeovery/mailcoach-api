@@ -5,7 +5,7 @@ namespace Leeovery\MailcoachApi\Http\App\Controllers;
 use Laravel\Passport\Client;
 use Laravel\Passport\ClientRepository;
 
-class WebhookDestroyController
+class DestroyClientController
 {
     public function __invoke(Client $client, ClientRepository $clientRepository)
     {

@@ -5,7 +5,7 @@ namespace Leeovery\MailcoachApi\Http\App\Controllers;
 use Illuminate\Http\Request;
 use Leeovery\MailcoachApi\Models\Webhook;
 
-class WebhookCreateController
+class CreateWebhookController
 {
     public function __invoke(Request $request)
     {

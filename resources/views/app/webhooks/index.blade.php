@@ -26,15 +26,27 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th class="w-48 th-numeric hidden | md:table-cell">Created</th>
+                    <x-th sort-by="name" sort-default>Name</x-th>
+                    <th>Url</th>
+                    <th class="w-32 th-numeric">Triggers</th>
+                    <x-th sort-by="-created_at" class="w-48 th-numeric hidden | md:table-cell">Created</x-th>
                     <th class="w-12"></th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($webhooks as $webhook)
                     <tr>
-                        <td>{{ $webhook->name }}</td>
+                        <td class="markup-links">
+                            <a class="break-words" href="{{ route('mailcoach-api.webhooks.edit', $webhook) }}">
+                                {{ $webhook->name }}
+                            </a>
+                        </td>
+                        <td class="markup-links">
+                            <div class="break-words">
+                                {{ $webhook->url }}
+                            </div>
+                        </td>
+                        <td class="td-numeric">{{ $webhook->trigger_list_count }}</td>
                         <td class="td-numeric hidden | md:table-cell">
                             {{ $webhook->created_at->toMailcoachFormat() }}
                         </td>
@@ -46,11 +58,11 @@
                                 <ul class="dropdown-list dropdown-list-left | hidden" data-dropdown-list>
                                     <li>
                                         <x-form-button
-                                                :action="route('mailcoach-api.clients.destroy', $webhook)"
+                                                :action="route('mailcoach-api.webhooks.delete', $webhook)"
                                                 method="DELETE"
                                                 data-confirm="true"
                                         >
-                                            <x-icon-label icon="fa-trash-alt" text="Revoke" :caution="true"/>
+                                            <x-icon-label icon="fa-trash-alt" text="Delete" :caution="true" />
                                         </x-form-button>
                                     </li>
                                 </ul>
@@ -61,12 +73,12 @@
                 </tbody>
             </table>
 
-{{--            <x-table-status--}}
-{{--                    name="client"--}}
-{{--                    :paginator="$client ?? ''s"--}}
-{{--                    :total-count="$totalClientCount"--}}
-{{--                    :show-all-url="route('mailcoach-api.clients')"--}}
-{{--            ></x-table-status>--}}
+            <x-table-status
+                    name="webhooks"
+                    :paginator="$webhooks"
+                    :total-count="$totalWebhookCount"
+                    :show-all-url="route('mailcoach-api.webhooks')"
+            ></x-table-status>
 
         @else
             <p class="alert alert-info">

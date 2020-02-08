@@ -17,7 +17,7 @@
     <section class="card">
         <form
                 class="form-grid"
-                action="{{ route('mailcoach-api.webhooks.edit',[$webhook]) }}"
+                action="{{ route('mailcoach-api.webhooks.edit', [$webhook]) }}"
                 method="POST"
         >
             @csrf
@@ -25,60 +25,52 @@
 
             <x-text-field label="Name" name="name" :value="$webhook->name" type="name" required/>
 
-            <label class="label">When message is:</label>
+            <x-text-field label="Url" name="url" :value="$webhook->url" type="name" required/>
 
-            <div class="grid grid-cols-4 gap-4">
-                <x-checkbox-field label="Hard Bounced" name="bounce"
-                                  :checked="false"/>
-                <x-checkbox-field label="Marked as spam" name="track_clicks"
-                                  :checked="false"/>
-                <x-checkbox-field label="Clicked" name="track_clicks"
-                                  :checked="false"/>
-                <x-checkbox-field label="Opened" name="track_clicks"
-                                  :checked="false"/>
-            </div>
-            <div class="flex w-full wrap">
-                <div class="w-full flex justify-between">
-                    <x-checkbox-field label="Hard Bounced" name="bounce"
-                                      :checked="false"/>
-                    <x-checkbox-field label="Marked as spam" name="track_clicks"
-                                      :checked="false"/>
-                    <x-checkbox-field label="Clicked" name="track_clicks"
-                                      :checked="false"/>
-                    <x-checkbox-field label="Opened" name="track_clicks"
-                                      :checked="false"/>
-                </div>
-                <div class="w-full flex justify-between">
-                    <x-checkbox-field label="Sent" name="track_clicks"
-                                      :checked="false"/>
-                    <x-checkbox-field label="Unsubscribed" name="track_clicks"
-                                      :checked="false"/>
-                    <x-checkbox-field label="Delivered" name="track_clicks"
-                                      :checked="false"/>
-                </div>
-            </div>
+            <hr class="border-t-2 border-gray-200 my-8">
 
-            <div class="w-full">
-                <label class="label mb-4">When a subscriber:</label>
-                <div class="flex -mx-4">
-                    <div class="flex-0 px-4">
-                        <x-checkbox-field label="Subscribes to a list" name="bounce"
-                                          :checked="false"/>
+            <h2 class="markup-h2">Trigger webhook on these triggers:</h2>
+
+            <x-help>
+                The url you specify above will be hit when the checked event(s) occur.
+            </x-help>
+
+            @error('triggers')
+            <p class="form-error">{{ $message }}</p>
+            @enderror
+            
+            <div class="flex w-full">
+
+                <div class="w-1/2 flex flex-col align-start form-row">
+                    <label class="label mb-4">When a message is…</label>
+                    <div class="checkbox-group">
+                        @foreach ($messageTriggers as $trigger)
+                            <x-checkbox-field
+                                    :label="$trigger->label"
+                                    :name="'triggers['.$trigger->key.']'"
+                                    :checked="false"
+                            />
+                        @endforeach
                     </div>
-                    <div class="flex-0 px-4">
-                        <x-checkbox-field label="Unsubscribes from a list" name="track_clicks"
-                                          :checked="false"/>
-                    </div>
-                    <div class="flex-0 px-4">
-                        <x-checkbox-field label="Is Updated" name="track_clicks"
-                                          :checked="false"/>
+                </div>
+
+                <div class="w-1/2 flex flex-col align-start form-row">
+                    <label class="label mb-4">When a subscriber…</label>
+                    <div class="checkbox-group">
+                        @foreach ($subscriberTriggers as $trigger)
+                            <x-checkbox-field
+                                    :label="$trigger->label"
+                                    :name="'triggers['.$trigger->key.']'"
+                                    :checked="false"
+                            />
+                        @endforeach
                     </div>
                 </div>
             </div>
 
             <div class="form-buttons">
                 <button type="submit" class="button">
-                    <x-icon-label icon="fa-chart-pie" text="Save & Activate"/>
+                    <x-icon-label icon="fas fa-play" text="Save & Activate"/>
                 </button>
             </div>
         </form>

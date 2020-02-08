@@ -3,13 +3,14 @@
 namespace Leeovery\MailcoachApi\Http\App\Controllers;
 
 use Leeovery\MailcoachApi\Models\Webhook;
+use Leeovery\MailcoachApi\Http\App\Queries\WebhookQuery;
 
 class WebhookIndexController
 {
-    public function __invoke()
+    public function __invoke(WebhookQuery $webhookQuery)
     {
         return view('mailcoach-api::app.webhooks.index', [
-            'webhooks'          => Webhook::paginate(),
+            'webhooks'          => $webhookQuery->paginate(),
             'totalWebhookCount' => Webhook::count(),
         ]);
     }

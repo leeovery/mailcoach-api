@@ -16,7 +16,7 @@ class CreateMailcoachApiTables extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('url')->nullable();
-            $table->string('description')->nullable();
+            // $table->string('description')->nullable();
             $table->json('triggers')->nullable();
             $table->string('status', 15);
             $table->timestamps();
