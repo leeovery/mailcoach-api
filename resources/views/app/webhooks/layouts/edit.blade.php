@@ -1,5 +1,5 @@
 @extends('mailcoach::app.layouts.app', [
-    'title' => $webhook->name
+    'title' => (isset($titlePrefix) ?  $titlePrefix . ' | ' : '') . $webhook->name
 ])
 
 @section('header')
@@ -16,6 +16,17 @@
 @endsection
 
 @section('content')
+    <nav class="tabs">
+        <ul>
+            <x-navigation-item :href="route('mailcoach-api.webhooks.edit', $webhook)">
+                <x-icon-label icon="fa-cog" text="Settings" />
+            </x-navigation-item>
+            <x-navigation-item :href="route('mailcoach-api.webhooks.event-log', $webhook)">
+                <x-icon-label icon="fa-chart-pie" text="Event Log" :count="$webhook->webhookEvents()->count() ?? 0" />
+            </x-navigation-item>
+        </ul>
+    </nav>
+
     <section class="card">
         @yield('webhook')
     </section>

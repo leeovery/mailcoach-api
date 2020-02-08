@@ -48,7 +48,7 @@ class Webhook extends Model
 
     public function getTriggerListCountAttribute(): int
     {
-        return count($this->triggers);
+        return count($this->triggers ?? []);
     }
 
     public function hasTrigger($trigger)

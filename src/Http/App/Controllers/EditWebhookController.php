@@ -13,7 +13,7 @@ class EditWebhookController
     {
         $viewModel = new WebhookViewModel($webhook, $triggers);
 
-        return view('mailcoach-api::app.webhooks.edit', $viewModel);
+        return view('mailcoach-api::app.webhooks.settings', $viewModel);
     }
 
     public function update(Webhook $webhook, UpdateWebhookRequest $request)
