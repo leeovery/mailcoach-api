@@ -26,8 +26,8 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Client ID</th>
                     <th>Name</th>
+                    <th>Client ID</th>
                     <th>Secret</th>
                     <th class="w-48 th-numeric hidden | md:table-cell">Created</th>
                     <th class="w-12"></th>
@@ -36,8 +36,8 @@
                 <tbody>
                 @foreach($clients as $client)
                     <tr>
-                        <td>{{ $client->id }}</td>
                         <td>{{ $client->name }}</td>
+                        <td>{{ $client->id }}</td>
                         <td>
                             <button class="button px-2 h-8" data-modal-trigger="show-secret-{{ $client->id }}">
                                 <x-icon-label text="Show secret"/>

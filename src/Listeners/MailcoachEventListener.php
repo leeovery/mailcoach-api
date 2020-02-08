@@ -2,13 +2,22 @@
 
 namespace Leeovery\MailcoachApi\Listeners;
 
+use Leeovery\MailcoachApi\Actions\Webhook\DispatchWebhook;
+
 class MailcoachEventListener
 {
-    public function handle($listener, $event)
-    {
-        dd($listener, $event);
+    /**
+     * @var DispatchWebhook
+     */
+    private DispatchWebhook $dispatchWebhook;
 
-        // fire webhook as per config
-        // create Action to do this, dont do it here.
+    public function __construct(DispatchWebhook $dispatchWebhook)
+    {
+        $this->dispatchWebhook = $dispatchWebhook;
+    }
+
+    public function handle($eventName, $eventPayload)
+    {
+        $this->dispatchWebhook->execute($eventName, $eventPayload);
     }
 }

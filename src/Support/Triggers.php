@@ -17,4 +17,9 @@ class Triggers
     {
         return $this->eventMap->values();
     }
+
+    public function hasEvent($event)
+    {
+        return $this->eventMap->has($event);
+    }
 }
