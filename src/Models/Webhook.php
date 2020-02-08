@@ -66,6 +66,11 @@ class Webhook extends Model
         return $this->status === WebhookStatus::DEACTIVATED;
     }
 
+    public function isDraft()
+    {
+        return $this->status === WebhookStatus::DRAFT;
+    }
+
     public function activate()
     {
         $this->status = WebhookStatus::ACTIVATED;

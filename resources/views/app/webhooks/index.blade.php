@@ -39,9 +39,11 @@
                     <tr>
                         <td class="text-center">
                             @if($webhook->isActive())
-                                <i title="Active" class="fas fa-play text-green-500 mr-2"></i>
+                                <i title="Active" class="fas fa-play text-green-500"></i>
+                            @elseif($webhook->isInactive())
+                                <i title="Inactive" class="fas fa-stop text-red-500"></i>
                             @else
-                                <i title="Inactive" class="fas fa-stop text-red-500 mr-2"></i>
+                                <i title="Draft" class="fas fa-edit text-gray-500 ml-px"></i>
                             @endif
                         </td>
                         <td class="markup-links">
@@ -73,7 +75,7 @@
                                             >
                                                 <x-icon-label icon="fas fa-stop" text="Deactivate"/>
                                             </x-form-button>
-                                        @else
+                                        @elseif ($webhook->isInactive())
                                             <x-form-button
                                                     :action="route('mailcoach-api.webhooks.activate', $webhook)"
                                                     method="PUT"
