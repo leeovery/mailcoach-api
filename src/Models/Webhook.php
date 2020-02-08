@@ -37,6 +37,21 @@ class Webhook extends Model
         return count($this->triggers);
     }
 
+    public function hasTrigger($trigger)
+    {
+        return in_array($trigger, $this->triggers ?? []);
+    }
+
+    public function isActive()
+    {
+        return $this->status === WebhookStatus::ACTIVATED;
+    }
+
+    public function isInactive()
+    {
+        return $this->status === WebhookStatus::DEACTIVATED;
+    }
+
     public function activate()
     {
         $this->status = WebhookStatus::ACTIVATED;

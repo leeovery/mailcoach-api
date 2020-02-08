@@ -38,7 +38,7 @@
             @error('triggers')
             <p class="form-error">{{ $message }}</p>
             @enderror
-            
+
             <div class="flex w-full">
 
                 <div class="w-1/2 flex flex-col align-start form-row">
@@ -48,7 +48,7 @@
                             <x-checkbox-field
                                     :label="$trigger->label"
                                     :name="'triggers['.$trigger->key.']'"
-                                    :checked="false"
+                                    :checked="$webhook->hasTrigger($trigger->key)"
                             />
                         @endforeach
                     </div>
@@ -61,7 +61,7 @@
                             <x-checkbox-field
                                     :label="$trigger->label"
                                     :name="'triggers['.$trigger->key.']'"
-                                    :checked="false"
+                                    :checked="$webhook->hasTrigger($trigger->key)"
                             />
                         @endforeach
                     </div>

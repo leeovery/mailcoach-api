@@ -26,7 +26,7 @@ class EditWebhookController
 
         $webhook->activate();
 
-        flash()->success('The webhook has been updated.');
+        flash()->success('The webhook has been updated & activated.');
 
         return redirect()->route('mailcoach-api.webhooks');
     }

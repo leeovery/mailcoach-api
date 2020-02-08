@@ -2,26 +2,18 @@
 
 namespace Leeovery\MailcoachApi\Http\App\Controllers;
 
-use Illuminate\Http\Request;
 use Leeovery\MailcoachApi\Models\Webhook;
+use Leeovery\MailcoachApi\Http\App\Requests\CreateWebhookRequest;
 
 class CreateWebhookController
 {
-    public function __invoke(Request $request)
+    public function __invoke(CreateWebhookRequest $request)
     {
-        // create pending webhook
-        // redirect to page so user can select the events to trigger the webhook on.
-        // can save and activate
-        // user can also then deactivate webhook, which will essentially switch it off
-        // can also be deleted which will delete all the associated webhook logged events
-
-        $webhook = new Webhook([
-            'name' => $request->name
+        $webhook = Webhook::create([
+            'name' => $request->name,
         ]);
 
-        $webhook->save();
-
-        flash()->success("Webhook was created.");
+        flash()->success("A new draft webhook was created.");
 
         return redirect()->route('mailcoach-api.webhooks.edit', [$webhook]);
     }
