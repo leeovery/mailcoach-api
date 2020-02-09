@@ -9,8 +9,6 @@ return [
 
     'webhooks'   => [
 
-        'enabled' => env('MAILCOACH_API_WEBHOOK_ENABLED', false),
-
         'secret' => env('MAILCOACH_API_WEBHOOK_SECRET', 'this-is-meant-to-be-a-secret-dude'),
 
     ],

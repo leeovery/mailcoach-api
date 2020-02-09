@@ -13,6 +13,7 @@ class WebhookCallFailedAction
         $webhook->webhookEvents()->create([
             'status'   => WebhookEventLogStatus::FAILED,
             'url'      => $event->webhookUrl,
+            'event'    => $event->payload['event'] ?? '',
             'payload'  => $event->payload,
             'headers'  => $event->headers,
             'attempts' => $event->attempt,

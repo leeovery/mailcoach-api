@@ -9,7 +9,7 @@ class WebhookQuery extends QueryBuilder
 {
     public function __construct()
     {
-        $query = Webhook::query();
+        $query = Webhook::query()->with('webhookEvents');
 
         parent::__construct($query);
 

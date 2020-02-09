@@ -26,6 +26,7 @@ class CreateMailcoachApiTables extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('webhook_id');
             $table->string('url');
+            $table->string('event');
             $table->string('status');
             $table->json('payload');
             $table->json('headers');

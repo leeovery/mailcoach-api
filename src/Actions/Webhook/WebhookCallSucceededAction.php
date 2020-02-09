@@ -13,6 +13,7 @@ class WebhookCallSucceededAction
         $webhook->webhookEvents()->create([
             'status'   => WebhookEventLogStatus::SUCCESS,
             'url'      => $event->webhookUrl,
+            'event'    => $event->payload['event'] ?? '',
             'payload'  => $event->payload,
             'headers'  => $event->headers,
             'attempts' => $event->attempt,
