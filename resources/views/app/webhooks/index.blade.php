@@ -30,6 +30,7 @@
                     <x-th sort-by="name" sort-default>Name</x-th>
                     <th>Url</th>
                     <th class="w-32 th-numeric">Triggers</th>
+                    <th class="w-32 th-numeric">Fired</th>
                     <x-th sort-by="-created_at" class="w-48 th-numeric hidden | md:table-cell">Created</x-th>
                     <th class="w-12"></th>
                 </tr>
@@ -57,6 +58,11 @@
                             </div>
                         </td>
                         <td class="td-numeric">{{ $webhook->trigger_list_count }}</td>
+                        <td class="td-numeric markup-links">
+                            <a href="{{ route('mailcoach-api.webhooks.event-log', $webhook) }}">
+                                {{ $webhook->webhookEvents()->count() }}
+                            </a>
+                        </td>
                         <td class="td-numeric hidden | md:table-cell">
                             {{ $webhook->created_at->toMailcoachFormat() }}
                         </td>

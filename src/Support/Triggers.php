@@ -4,27 +4,20 @@ namespace Leeovery\MailcoachApi\Support;
 
 use Illuminate\Support\Collection;
 
-class Triggers
+class Triggers extends Collection
 {
-    private Collection $eventMap;
-
-    public function __construct(Collection $eventMap)
-    {
-        $this->eventMap = $eventMap;
-    }
-
     public function events()
     {
-        return $this->eventMap->values();
+        return $this->values();
     }
 
     public function hasEvent($event)
     {
-        return $this->eventMap->has($event);
+        return $this->has($event);
     }
 
     public function getTriggerKey($event)
     {
-        return $this->eventMap->get($event);
+        return $this->get($event);
     }
 }

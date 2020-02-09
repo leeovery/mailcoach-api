@@ -1,6 +1,6 @@
 <?php
 
-namespace Leeovery\MailcoachApi\Http\App\Controllers;
+namespace Leeovery\MailcoachApi\Http\App\Controllers\Webhooks;
 
 use Leeovery\MailcoachApi\Models\Webhook;
 use Leeovery\MailcoachApi\Support\Triggers;

@@ -118,7 +118,7 @@ class MailcoachApiServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/mailcoach-api.php', 'mailcoach-api');
 
         $this->app->singleton(Triggers::class, function () {
-            return new Triggers(collect($this->actionMap));
+            return new Triggers($this->actionMap);
         });
 
         Event::listen('Spatie\Mailcoach\Events\*', MailcoachEventListener::class);

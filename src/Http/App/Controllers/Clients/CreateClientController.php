@@ -1,6 +1,6 @@
 <?php
 
-namespace Leeovery\MailcoachApi\Http\App\Controllers;
+namespace Leeovery\MailcoachApi\Http\App\Controllers\Clients;
 
 use Laravel\Passport\ClientRepository;
 use Leeovery\MailcoachApi\Http\App\Requests\CreateApiClientRequest;

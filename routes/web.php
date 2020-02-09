@@ -1,16 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Leeovery\MailcoachApi\Http\App\Controllers\ClientIndexController;
-use Leeovery\MailcoachApi\Http\App\Controllers\EditWebhookController;
-use Leeovery\MailcoachApi\Http\App\Controllers\CreateClientController;
-use Leeovery\MailcoachApi\Http\App\Controllers\WebhookIndexController;
-use Leeovery\MailcoachApi\Http\App\Controllers\DestroyClientController;
-use Leeovery\MailcoachApi\Http\App\Controllers\CreateWebhookController;
-use Leeovery\MailcoachApi\Http\App\Controllers\DestroyWebhookController;
-use Leeovery\MailcoachApi\Http\App\Controllers\ActivateWebhookController;
-use Leeovery\MailcoachApi\Http\App\Controllers\DeactivateWebhookController;
+use Leeovery\MailcoachApi\Http\App\Controllers\Clients\ClientIndexController;
+use Leeovery\MailcoachApi\Http\App\Controllers\Webhooks\EditWebhookController;
+use Leeovery\MailcoachApi\Http\App\Controllers\Clients\CreateClientController;
+use Leeovery\MailcoachApi\Http\App\Controllers\Webhooks\WebhookIndexController;
+use Leeovery\MailcoachApi\Http\App\Controllers\Clients\DestroyClientController;
+use Leeovery\MailcoachApi\Http\App\Controllers\Webhooks\CreateWebhookController;
+use Leeovery\MailcoachApi\Http\App\Controllers\Webhooks\DestroyWebhookController;
+use Leeovery\MailcoachApi\Http\App\Controllers\Webhooks\ActivateWebhookController;
 use Leeovery\MailcoachApi\Http\App\Controllers\Webhooks\WebhookEventLogController;
+use Leeovery\MailcoachApi\Http\App\Controllers\Webhooks\DeactivateWebhookController;
 
 Route::prefix('api')->group(function () {
 
