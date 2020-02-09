@@ -85,12 +85,12 @@ curl -I -H ‘Content-Type: application/x-www-form-urlencoded’ -X POST ‘{you
 
 This API makes a few assumptions which are important to understand.
 
-The main one is that it considers a subscriber of a certain email, no matter which list they are on, to be the same person. Mailcoach has the concept that each `Subscriber` belongs to one `EmailLst`. A person can subscribe to multiple lists, but they will result in multiple `Subscriber` records being created for them.
+The main one is that it considers a subscriber of a certain email, no matter which list they are on, to be the same person. Mailcoach has the concept that each `Subscriber` belongs to one `EmailLst`. A person can subscribe to multiple lists, but that will result in multiple `Subscriber` records being created for them.
 
 This package introduces a `Contact` entity, which will group `Subscriber` records, based on the email, and will keep the email, names, and other meta info consolidated across all their `Subscriber` records.
 
 #### Example:
-Consider the user `lee@example.com` is subscribed to 3 lists, and unsubscrbed from 1 list.
+Consider the user `lee@example.com` is subscribed to 2 lists, and unsubscrbed from 1...
 
 A `GET` request to `/contact/lee@example.com` would result in the following response data:
 
