@@ -3,6 +3,7 @@
 namespace Leeovery\MailcoachApi\Actions\Webhook;
 
 use Leeovery\MailcoachApi\Models\Webhook;
+use Leeovery\MailcoachApi\Enums\WebhookEventLogStatus;
 use Spatie\WebhookServer\Events\FinalWebhookCallFailedEvent;
 
 class FinalWebhookCallFailedAction
@@ -10,7 +11,7 @@ class FinalWebhookCallFailedAction
     public function execute(Webhook $webhook, FinalWebhookCallFailedEvent $event)
     {
         $webhook->webhookEvents()->create([
-            'status'   => 'final-fail',
+            'status'   => WebhookEventLogStatus::FINAL_FAIL,
             'url'      => $event->webhookUrl,
             'payload'  => $event->payload,
             'headers'  => $event->headers,

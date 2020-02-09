@@ -1,9 +1,10 @@
-<?php
+<?php /** @noinspection PhpUndefinedFieldInspection */
 
 namespace Leeovery\MailcoachApi\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Leeovery\MailcoachApi\Enums\WebhookEventLogStatus;
 
 class WebhookEvent extends Model
 {
@@ -19,5 +20,20 @@ class WebhookEvent extends Model
     public function webhook(): BelongsTo
     {
         return $this->belongsTo(Webhook::class);
+    }
+
+    public function isSuccess()
+    {
+        return $this->status === WebhookEventLogStatus::SUCCESS;
+    }
+
+    public function isFailure()
+    {
+        return $this->status === WebhookEventLogStatus::FAILED;
+    }
+
+    public function isFinalFailure()
+    {
+        return $this->status === WebhookEventLogStatus::FINAL_FAIL;
     }
 }
