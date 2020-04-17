@@ -17,7 +17,7 @@
   ],
   "require": {
     "php": "^7.4",
-    "illuminate/support": "^6.0",
+    "illuminate/support": "^7.0",
     "laravel/passport": "^8.3",
     "spatie/data-transfer-object": "^1.13",
     "spatie/laravel-mailcoach": "^2.0.0",
